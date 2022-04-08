@@ -19,3 +19,8 @@ Hashicorp Nomad, Vault (for storing sensitive info)
 * MongoDB
 * Binance API
 * Trading Strategy
+
+##Testing
+You may test pattern recognition API using this Jupiter Notebook here - https://github.com/alexgaas/price-action-analytics/blob/main/identify_candlestick_patterns.ipynb
+
+Stock candlestick chart will show you identified pinbar pattern
