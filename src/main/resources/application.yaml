@@ -1,0 +1,106 @@
+server:
+  port: ${NOMAD_HOST_PORT_http:8090}
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              ReactiveMongoTemplate: INFO
+
+spring:
+  application:
+    name: price-action
+
+  quartz:
+    job-store-type: memory
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceId: AUTO
+          threadPool:
+            threadCount: 5
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 27017
+      database: priceAction
+      authentication-database: admin
+      username: ${dbuser}
+      password: ${dbpassword}
+
+org:
+  quartz:
+    jobStore:
+      class: org.quartz.simpl.RAMJobStore
+
+schedule:
+  symbol: BTCUSD
+  schedule-toggle:
+    oneMinEnabled: false
+    fiveMinEnabled: false
+    fifteenMinEnabled: false
+    oneHourEnabled: true
+    oneDayEnabled: false
+
+web:
+  client:
+    connectionTimeoutInMillis: 57000
+    readTimeoutInMillis: 57000
+    writeTimeoutInMillis: 57000
+
+twilio:
+  api:
+    host: https://api.twilio.com/2010-04-01/Accounts/${twilio-account-sid}/Messages.json
+    account-sid: ${twilio-account-sid}
+    auth-token: ${twilio-auth-token}
+    account:
+      default-from: whatsapp:+14155238886
+      default-to:
+        - whatsapp:+{1234567890}
+
+notifications:
+  messages:
+    - id: LONG_PINBAR_UP
+      body: 'Long pinbar up (SELL) for {0}, color {1}, interval {2}'
+    - id: LONG_PINBAR_DOWN
+      body: 'Long pinbar down (BUY) for {0}, color {1}, interval {2}'
+    - id: SHORT_PINBAR_UP
+      body: 'Short pinbar up (SELL) for {0}, color {1}, interval {2}'
+    - id: SHORT_PINBAR_DOWN
+      body: 'Short pinbar down (BUY) for {0}, color {1}, interval {2}'
+    - id: STOP_LIMIT
+      body: 'Stop limit order ({0}) with price {1}'
+
+binance:
+  api:
+    host: https://api.binance.us
+    apiKey: ${binance-api-key}
+    endpoints:
+      general:
+        test-connectivity: /api/v3/ping
+        check-server-time: /api/v3/time
+      trade-data:
+        candlestick-data: /api/v3/klines
+        exchange-information: /api/v3/exchangeInfo
+
+candlestick-data-setup:
+  symbol: BTCUSD
+  interval: ONE_DAY
+  startTime: 1632182399999
+  endTime: 1633046399999
+  limit: 12
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local, testing
+---
+spring:
+  config:
+    activate:
+      on-profile: prod

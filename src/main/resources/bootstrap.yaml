@@ -1,0 +1,24 @@
+spring:
+  config:
+    import: vault://
+  application:
+    name: price-action
+  profiles:
+    active: local
+  cloud:
+    vault:
+      host: 127.0.0.1
+      port: 8200
+      scheme: http
+      fail-fast: true
+      authentication: TOKEN
+      token: root
+      kv:
+        enabled: true
+        default-context: price-action
+
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        register: false
