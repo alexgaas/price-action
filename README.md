@@ -21,7 +21,7 @@ Hashicorp Nomad, Vault (for storing sensitive info)
 * Trading Strategy
 
 ## Testing
-You may test pattern recognition API using this Jupiter Notebook here - https://github.com/alexgaas/price-action-analytics/blob/main/identify_candlestick_patterns.ipynb
+You may test pattern recognition API using this Jupiter Notebook [here](https://github.com/alexgaas/price-action-analytics/blob/main/identify_candlestick_patterns.ipynb)
 
 Stock candlestick chart will show you identified pinbar pattern, example:
 <img src="https://github.com/alexgaas/price-action/blob/main/price-action-analytics.png" width="600" height="400" />
